@@ -2,7 +2,7 @@ import React, {  useEffect } from "react";
 import Cell from "../Cell/Cell";
 import styles from "./Board.module.css";
 import Controls from "../Controls/Controls";
-import { solve, newBoard } from "../../utility/utility";
+import { solve, newBoard, possible } from "../../utility/utility";
 import {useBoard } from "../../hooks/index"
 
 const Board = () => {
@@ -10,7 +10,7 @@ const Board = () => {
 
   useEffect(() => {
     console.log("[Board] useEffect")
-  }, []);
+  }, [board]);
 
   const solver = () => {
     console.log("[Board] solver() board before copy", board)
@@ -24,10 +24,6 @@ const Board = () => {
     console.log("[Board] solver() after copying board: ", copy);
     solve(copy);
     setBoard(copy);
-  };
-
-  const reset = () => {
-    resetBoard()
   };
 
   const random = () => {};
@@ -46,6 +42,7 @@ const Board = () => {
             row={rowNum}
             board={board}
             changeBoard={changeBoard}
+            possible={possible(board, rowNum, colNum, val)}
           />
         );
       });
@@ -55,7 +52,7 @@ const Board = () => {
   return (
     <>
       <div className={styles.Board}>{Board}</div>
-      <Controls random={random} reset={reset} solver={solver} />
+      <Controls random={random} reset={resetBoard} solver={solver} />
     </>
   );
 };

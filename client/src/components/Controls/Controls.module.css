@@ -1,5 +1,6 @@
 .Controls {
   margin: auto;
+  display: flex;
   width: 500px;
-  height: 500px;
+  height: 60px;
 }

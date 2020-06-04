@@ -1,19 +1,28 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core";
 import styles from "./Controls.module.css";
 
-const Controls = ({ solver, reset, random }) => (
-  <div className={styles.Controls}>
-    <Button variant="contained" color="primary" onClick={solver}>
-      Solve
-    </Button>
-    <Button variant="contained" color="secondary" onClick={reset}>
-      Reset
-    </Button>
-    <Button variant="contained" onClick={random}>
-      Random
-    </Button>
-  </div>
-);
+const StyledButton = withStyles({
+  root: {
+    margin: "auto",
+  },
+})(Button);
+
+const Controls = ({ solver, reset, random }) => {
+  return (
+    <div className={styles.Controls}>
+      <StyledButton variant="contained" color="primary" onClick={solver}>
+        Solve
+      </StyledButton>
+      <StyledButton variant="contained" color="secondary" onClick={reset}>
+        Reset
+      </StyledButton>
+      <StyledButton variant="contained" onClick={random}>
+        Random
+      </StyledButton>
+    </div>
+  );
+};
 
 export default React.memo(Controls, () => true);

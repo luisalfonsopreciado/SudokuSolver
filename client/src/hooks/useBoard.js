@@ -13,7 +13,13 @@ export const useBoard = () => {
   };
 
   const resetBoard = () => {
-    setBoard(newBoard());
+    const newBoard = [...board];
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        newBoard[i][j] = 0;
+      }
+    }
+    setBoard(newBoard);
   };
 
   return [board, setBoard, changeBoard, resetBoard];

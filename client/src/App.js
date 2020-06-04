@@ -4,9 +4,9 @@ import Board from "./components/Board/Board";
 function App() {
   console.log("App Rendered")  
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <h1 style={{ margin: "auto" }}>Sudoku Solver</h1>
-      <hr/>
+    <div className="App">
+      <h1 className="Title">Sudoku Solver</h1>
+      <br/>
       <Board></Board>
       
     </div>
