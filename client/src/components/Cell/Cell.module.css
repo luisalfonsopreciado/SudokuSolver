@@ -1,0 +1,28 @@
+.Cell{
+    border: 1px solid black;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.Right{
+    border-right: 4px solid black;
+}
+
+.Bottom{
+    border-bottom: 4px solid black;
+}
+
+.Input{
+    padding: 18px;
+    width: 95%;
+    height: 95%;
+    margin: auto;
+    border: none;
+    font-weight: bold;
+}
+
+.Error{
+    background-color: red;
+}
