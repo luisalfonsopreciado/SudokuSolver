@@ -1,35 +1,19 @@
 import React from "react";
 import styles from "./Cell.module.css";
-import { possible } from "../../utility/solver";
+import { useClasses } from "../../hooks/index";
 
-const Cell = ({ val, row, col, board, setBoard }) => {
-  let classes = [styles.Cell];
-
-  if (row === 2 || row === 5) {
-    // Right Strong
-    classes.push(styles.Bottom);
-  }
-  if (col === 2 || col === 5) {
-    // Bottom Strong
-    classes.push(styles.Right);
-  }
-
-  if (!possible(board, row, col, val)) {
-    classes.push(styles.Error);
-  }
+const Cell = ({ val, row, col, board, changeBoard }) => {
+  const [classes] = useClasses([styles.Cell], row, col, val, board, styles);
 
   const onChangeHandler = (event) => {
-    const boardCopy = [...board];
-    if (isNaN(event.target.value) || event.target.value === "") {
-      boardCopy[row][col] = 0;
-    } else {
-      boardCopy[row][col] = parseInt(event.target.value);
-    }
-    setBoard(boardCopy);
+    const num = parseInt(event.target.value);
+    const invalidNum = isNaN(num);
+    changeBoard(row, col, !invalidNum ? num : 0);
   };
+
   console.log("Cell Rendered");
   return (
-    <div className={classes.join(" ")} style={{ margin: "auto" }}>
+    <div className={classes.join(" ")}>
       <input
         value={val === 0 ? "" : val}
         onChange={(event) => onChangeHandler(event)}

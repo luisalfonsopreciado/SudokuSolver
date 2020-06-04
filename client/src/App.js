@@ -6,8 +6,9 @@ function App() {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <h1 style={{ margin: "auto" }}>Sudoku Solver</h1>
-      <Board ></Board>
-      <hr></hr>
+      <hr/>
+      <Board></Board>
+      
     </div>
   );
 }

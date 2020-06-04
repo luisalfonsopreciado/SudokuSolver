@@ -1,24 +1,25 @@
-let solutionFound = false;
-
 export const solve = (board) => {
-  let copy = [...board];
-  for (let row = 0; row < copy.length; row++) {
-    for (let col = 0; col < copy[row].length; col++) {
-      if (solutionFound) return copy;
-      if (copy[row][col] === 0) {
+  console.log("[Solve] board: ", board)
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[row].length; col++) {
+      if (board[row][col] === 0) {
+        console.log(`Missing cell at ${row} ${col}`);
         for (let i = 1; i < 10; i++) {
-          if (possible(copy, row, col, i)) {
-            copy[row][col] = i;
-            solve(copy);
-            copy[row][col] = 0;
+          
+          if (possible(board, row, col, i)) {
+            console.log(`Possible to put ${i} in ${row} ${col}`);
+            board[row][col] = i;
+            solve(board);
+            board[row][col] = 0;
+            console.log(`${i} did not work in ${row} ${col}`);
           }
         }
         return;
       }
     }
   }
-  solutionFound = true;
-  return ;
+ console.log(board);
+  return;
 };
 
 export const possible = (board, row, col, num) => {

@@ -1,81 +1,63 @@
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import Cell from "../Cell/Cell";
 import styles from "./Board.module.css";
 import Controls from "../Controls/Controls";
-import { solve } from "../../utility/solver";
+import { solve, newBoard } from "../../utility/utility";
+import {useBoard } from "../../hooks/index"
 
-export default () => {
-  const [board, setBoard] = useState([[]]);
-  const [test, setTest] = useState("initial");
+const Board = () => {
+  const [board, setBoard ,changeBoard, resetBoard] = useBoard()
+
   useEffect(() => {
-    const newBoard = () => {
-      const array = new Array(9);
-      for (let i = 0; i < array.length; i++) {
-        array[i] = new Array(9);
-        for (let j = 0; j < 9; j++) {
-          array[i][j] = 1;
-        }
-      }
-
-      return array;
-    };
-    setBoard(newBoard);
-    console.log("[Board] UseEffect");
+    console.log("[Board] useEffect")
   }, []);
 
   const solver = () => {
-    solve(board);
-    //  console.log(newBoard);
-    //  setBoard(newBoard);
-  };
-  const reset = () => {
-    console.log("reset called");
-    const array = new Array(9);
-    for (let i = 0; i < array.length; i++) {
-      array[i] = new Array(9);
-      for (let j = 0; j < 9; j++) {
-        array[i][j] = 0;
+    console.log("[Board] solver() board before copy", board)
+    const copy = newBoard();
+    console.log("[Board] solver() empty board copy", copy)
+    for (let row = 0; row < board.length; row++) {
+      for (let col = 0; col < board[row].length; col++) {
+        copy[row][col] = board[row][col];
       }
-    }
-    setBoard(array);
+    } // Deep copy of the array
+    console.log("[Board] solver() after copying board: ", copy);
+    solve(copy);
+    setBoard(copy);
   };
 
-  const random = () => {
-    // const copy = [...board];
-    // for (let i = 0; i < copy.length; i++) {
-    //   for (let j = 0; j < 9; j++) {
-    //     const num = Math.floor(Math.random * 9);
-    //     console.log(num);
-    //     if (possible(board, i, j, num)) {
-    //       copy[i][j] = num;
-    //     } else {
-    //       copy[i][j] = 0;
-    //     }
-    //   }
-    // }
-    setTest("XXX");
+  const reset = () => {
+    resetBoard()
   };
+
+  const random = () => {};
+  console.log("[Board] Rendering")
+  console.log(board)
+
+  let Board = null;
+  if (board) {
+    Board = board.map((row, rowNum) => {
+      return row.map((val, colNum) => {
+        return (
+          <Cell
+            val={val}
+            key={[rowNum, colNum]}
+            col={colNum}
+            row={rowNum}
+            board={board}
+            changeBoard={changeBoard}
+          />
+        );
+      });
+    });
+  }
+
   return (
     <>
-      <div className={styles.Board}>
-        {board.map((row, rowNum) => {
-          console.log(row);
-          return row.map((val, colNum) => {
-            return (
-              <Cell
-                val={val}
-                key={[rowNum, colNum]}
-                col={colNum}
-                row={rowNum}
-                board={board}
-                setBoard={setBoard}
-              />
-            );
-          });
-        })}
-      </div>
-      <p>{test}</p>
+      <div className={styles.Board}>{Board}</div>
       <Controls random={random} reset={reset} solver={solver} />
     </>
   );
 };
+
+export default Board
