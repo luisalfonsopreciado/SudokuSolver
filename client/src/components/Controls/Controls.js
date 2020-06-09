@@ -9,11 +9,14 @@ const StyledButton = withStyles({
   },
 })(Button);
 
-const Controls = ({ solver, reset, random }) => {
+const Controls = ({ solver, reset, random, solveOne }) => {
   return (
     <div className={styles.Controls}>
       <StyledButton variant="contained" color="primary" onClick={solver}>
         Solve
+      </StyledButton>
+      <StyledButton variant="contained" color="primary" onClick={solveOne}>
+        SolveNext
       </StyledButton>
       <StyledButton variant="contained" color="secondary" onClick={reset}>
         Reset

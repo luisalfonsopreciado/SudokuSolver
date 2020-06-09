@@ -22,8 +22,17 @@
     margin: auto;
     border: none;
     font-weight: bold;
+    animation-name: example;
+    animation-duration: 1s;
 }
 
 .Error{
     background-color: red;
 }
+
+@keyframes example {
+    0%   {background-color: green;}
+    25%  {background-color: lightgreen;}
+    50%  {background-color: rgb(198, 211, 198);}
+    100% {background-color: white;}
+  }

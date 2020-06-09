@@ -1,34 +1,35 @@
-import React, {  useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import Cell from "../Cell/Cell";
 import styles from "./Board.module.css";
 import Controls from "../Controls/Controls";
-import { solve, newBoard, possible } from "../../utility/utility";
-import {useBoard } from "../../hooks/index"
+import { solve, possible, solveNext, test } from "../../utility/utility";
+import { useBoard } from "../../hooks/index";
 
 const Board = () => {
-  const [board, setBoard ,changeBoard, resetBoard] = useBoard()
-
+  const [board, setBoard, changeBoard, resetBoard] = useBoard();
+  
   useEffect(() => {
-    console.log("[Board] useEffect")
+    console.log("[Board] useEffect");
   }, [board]);
 
-  const solver = () => {
-    console.log("[Board] solver() board before copy", board)
-    const copy = newBoard();
-    console.log("[Board] solver() empty board copy", copy)
-    for (let row = 0; row < board.length; row++) {
-      for (let col = 0; col < board[row].length; col++) {
-        copy[row][col] = board[row][col];
-      }
-    } // Deep copy of the array
-    console.log("[Board] solver() after copying board: ", copy);
-    solve(copy);
-    setBoard(copy);
+  const solver = async () => {
+    console.log("[Board] solver() board before copy", board);
+    const newBoard = [...board];
+    await test(newBoard)
+    // await solve(newBoard);
+    console.log(newBoard)
+    setBoard(newBoard);
+   
+  };
+
+  const solveOne = async() => {
+    await solveNext([...board], changeBoard);
+  
   };
 
   const random = () => {};
-  console.log("[Board] Rendering")
-  console.log(board)
+  console.log("[Board] Rendering");
+  console.log(board);
 
   let Board = null;
   if (board) {
@@ -50,11 +51,16 @@ const Board = () => {
   }
 
   return (
-    <>
+    <Fragment>
+      <Controls
+        random={random}
+        reset={resetBoard}
+        solver={solver}
+        solveOne={solveOne}
+      />
       <div className={styles.Board}>{Board}</div>
-      <Controls random={random} reset={resetBoard} solver={solver} />
-    </>
+    </Fragment>
   );
 };
 
-export default Board
+export default Board;

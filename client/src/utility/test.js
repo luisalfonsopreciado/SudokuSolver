@@ -1,15 +1,14 @@
 let solutionFound = false;
-const solve = (board) => {
-  
+let sol = []
+let numSolutions = 0;
+const solve = async (board) => {
   for (let row = 0; row < board.length; row++) {
     for (let col = 0; col < board[row].length; col++) {
-      if (solutionFound) return;
       if (board[row][col] === 0) {
         for (let i = 1; i < 10; i++) {
-          if (solutionFound) return;
           if (possible(board, row, col, i)) {
             board[row][col] = i;
-            solve(board);
+            await solve(board);
             board[row][col] = 0;
           }
         }
@@ -17,7 +16,8 @@ const solve = (board) => {
       }
     }
   }
-  solutionFound = true;
+  ++numSolutions;
+  sol = board;
   console.log(board)
   return;
 };
@@ -60,20 +60,20 @@ const startPosition = (board, m) => {
   return startEnd;
 };
 
-const test = () => {
+const test = async() => {
   let arr = [
-    [0, 0, 0, 0, 7, 0, 0, 0, 0],
-    [6, 0, 0, 0, 9, 5, 0, 0, 0],
+    [3, 4, 2, 6, 7, 8, 5, 1, 9],
+    [6, 7, 1, 2, 9, 5, 4, 3, 8],
     [0, 9, 8, 0, 0, 0, 0, 6, 0],
     [8, 0, 0, 0, 6, 0, 0, 0, 3],
     [4, 0, 0, 8, 0, 3, 0, 0, 1],
     [7, 0, 0, 0, 2, 0, 0, 0, 6],
-    [0, 6, 0, 0, 0, 0, 0, 8, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 5],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [2, 6, 5, 0, 0, 0, 0, 8, 0],
+    [1, 3, 7, 4, 8, 2, 6, 9, 5],
+    [9, 8, 4, 5, 1, 6, 3, 2, 7],
   ];
-  solve(arr);
-  console.log(arr);
+  await solve(arr);
+  console.log(numSolutions);
 };
 test();
 
