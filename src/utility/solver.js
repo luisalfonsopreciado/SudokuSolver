@@ -1,14 +1,22 @@
 let isSolved = false;
-
-export const test = async (board) => {
+export const clone = (board) => {
+  const clone = [];
+  for (var i = 0; i < board.length; i++)
+    clone[i] = board[i].slice();
+  return clone;
+}
+export const solve = async (board) => {
   for (let row = 0; row < board.length; row++) {
     for (let col = 0; col < board[row].length; col++) {
       if (board[row][col] === 0) {
+        isSolved = false;
         for (let i = 1; i < 10; i++) {
           if (possible(board, row, col, i)) {
             board[row][col] = i;
-            await test(board);
-            if(!isSolved) board[row][col] = 0;
+            await solve(board);
+            if (!isSolved) {
+              board[row][col] = 0;
+            }
           }
         }
         return;
@@ -18,49 +26,7 @@ export const test = async (board) => {
   isSolved = true;
   return;
 };
-export const solve = async (board) => {
-  // console.log("[Solve] board: ", board);
-  for (let row = 0; row < board.length; row++) {
-    for (let col = 0; col < board[row].length; col++) {
-      if (board[row][col] === 0) {
-        // console.log(`Missing cell at ${row} ${col}`);
-        for (let i = 1; i < 10; i++) {
-          if (possible(board, row, col, i)) {
-            // console.log(`Possible to put ${i} in ${row} ${col}`);
-            board[row][col] = i;
-            await test(board);
-            board[row][col] = 0;
-            // console.log(`${i} did not work in ${row} ${col}`);
-          }
-        }
-        return;
-      }
-    }
-  }
-  console.log(board);
-  return;
-};
 
-export const solveNext = async (newBoard, changeBoard) => {
-  for (let row = 0; row < newBoard.length; row++) {
-    for (let col = 0; col < newBoard[row].length; col++) {
-      if (newBoard[row][col] === 0) {
-        for (let i = 1; i < 10; i++) {
-          if (possible(newBoard, row, col, i)) {
-            newBoard[row][col] = i;
-            // changeBoard(row, col, i);
-            await solveNext(newBoard, changeBoard);
-            // changeBoard(row,col, 0);
-            newBoard[row][col] = 0;
-          }
-        }
-        return;
-      }
-    }
-  }
-  console.log(newBoard);
-  return;
-};
 
 export const possible = (board, row, col, num) => {
   if (num === "") return true;

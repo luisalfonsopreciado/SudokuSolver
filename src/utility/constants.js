@@ -6,7 +6,6 @@ export const newBoard = () => {
       array[i][j] = 0;
     }
   }
-  console.log("[constants] newBoard() result:", array);
   return array;
 };
 
