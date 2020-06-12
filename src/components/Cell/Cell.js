@@ -11,7 +11,6 @@ const Cell = ({ val, row, col, changeBoard, possible }) => {
     changeBoard(row, col, invalidNum ? 0 : num);
   };
 
-  console.log("Cell Rendered");
   return (
     <div className={classes.join(" ")}>
       <input

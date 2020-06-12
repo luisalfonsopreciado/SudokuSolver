@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TEST_BOARD, newBoard } from "../utility/index";
+import { TEST_BOARD } from "../utility/index";
 
 export const useBoard = () => {
   const [board, setBoard] = useState(() => TEST_BOARD);

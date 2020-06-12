@@ -1,20 +1,26 @@
 import { solve, possible } from "./solver";
-import { newBoard } from "./constants";
 
-export const generateSudoku = async () => {
+export const generateSudoku = async (board) => {
   const { randRow, randCol } = randomCoords();
-  const board = newBoard();
   board[randRow][randCol] = Math.round(Math.random() * 8) + 1;
+
   await solve(board);
+
   let onlyOneSolution = true;
+
   while (onlyOneSolution) {
     const { randRow, randCol } = randomCoords();
+
     const oldNum = board[randRow][randCol];
+
     board[randRow][randCol] = 0;
+
     const count = [0];
+
     await numSols(board, count);
-    console.log(count[0]);
+
     onlyOneSolution = count[0] === 1;
+
     if (!onlyOneSolution) {
       board[randRow][randCol] = oldNum;
     }

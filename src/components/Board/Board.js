@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { Fragment } from "react";
 import Cell from "../Cell/Cell";
 import styles from "./Board.module.css";
 import Controls from "../Controls/Controls";
@@ -8,10 +8,6 @@ import { useBoard } from "../../hooks/index";
 const Board = () => {
   const [board, setBoard, changeBoard, resetBoard] = useBoard();
 
-  useEffect(() => {
-    console.log("[Board] useEffect");
-  }, [board]);
-
   const solver = async () => {
     const newBoard = [...board];
     await solve(newBoard);
@@ -19,30 +15,30 @@ const Board = () => {
   };
 
   const solveOne = async () => {
-    console.log("Board:", board);
-    const anotherBoard = clone(board);
-    const newBoard = board;
-    await solve(newBoard);
-    console.log("newBoard:", newBoard);
-    console.log("anotherBoard:", anotherBoard);
-    for (let row = 0; row < anotherBoard.length; row++) {
-      for (let col = 0; col < anotherBoard[row].length; col++) {
-        if (anotherBoard[row][col] === 0) {
-          // console.log("anotherboard",anotherBoard)
-          return changeBoard(row,col,newBoard[row][col])
-          // anotherBoard[row][col] = newBoard[row][col];
-          // return setBoard(anotherBoard);
+    
+    let Row = 0;
+    let Col = 0;
+
+    for (let row = 0; row < board.length; row++) {
+      for (let col = 0; col < board[row].length; col++) {
+        if (board[row][col] === 0) {
+          Row = row;
+          Col = col;
+          break;
         }
       }
     }
+    const anotherBoard = clone(board);
+    await solve(anotherBoard);
+    changeBoard(Row,Col,anotherBoard[Row][Col])
+    
   };
 
   const random = async () => {
-    const newBoard = await generateSudoku();
+    resetBoard();
+    const newBoard = await generateSudoku([...board]);
     setBoard(newBoard);
   };
-  // console.log("[Board] Rendering");
-  // console.log(board);
 
   let Board = null;
   if (board) {
