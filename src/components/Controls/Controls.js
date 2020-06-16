@@ -16,13 +16,13 @@ const Controls = ({ solver, reset, random, solveOne }) => {
         Solve
       </StyledButton>
       <StyledButton variant="contained" color="primary" onClick={solveOne}>
-        SolveNext
+        Solve One
       </StyledButton>
       <StyledButton variant="contained" color="secondary" onClick={reset}>
-        Reset
+        Clear
       </StyledButton>
       <StyledButton variant="contained" onClick={random}>
-        Random
+        New Puzzle
       </StyledButton>
     </div>
   );

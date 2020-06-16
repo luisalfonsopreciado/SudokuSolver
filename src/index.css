@@ -23,3 +23,10 @@ code {
 .Title {
   margin: auto
 }
+
+.BottomControls {
+  margin: auto;
+  display: flex;
+  width: 500px;
+  height: 60px;
+}
