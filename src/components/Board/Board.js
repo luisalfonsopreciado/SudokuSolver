@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Cell from "../Cell/Cell";
 import styles from "./Board.module.css";
 import Controls from "../Controls/Controls";
@@ -13,11 +13,11 @@ import { useBoard } from "../../hooks/index";
 
 const Board = () => {
   const [board, setBoard, changeBoard, resetBoard] = useBoard();
-
+  const [initialBoard, setInitialBoard] = useState(clone(board));
+  console.log(board);
+  console.log(initialBoard);
   const solver = async () => {
-    console.log(board)
     if (!canSolve(board)) {
-      console.log("Cannot solve");
       return;
     }
     const newBoard = [...board];
@@ -46,6 +46,7 @@ const Board = () => {
   const random = async () => {
     resetBoard();
     const newBoard = await generateSudoku([...board]);
+    setInitialBoard(clone(newBoard));
     setBoard(newBoard);
   };
 
@@ -53,6 +54,7 @@ const Board = () => {
   if (board) {
     Board = board.map((row, rowNum) => {
       return row.map((val, colNum) => {
+        const readOnly = { readOnly: initialBoard[rowNum][colNum] !== 0 };
         return (
           <Cell
             val={val}
@@ -62,6 +64,7 @@ const Board = () => {
             board={board}
             changeBoard={changeBoard}
             possible={possible(board, rowNum, colNum, val)}
+            readOnly={readOnly}
           />
         );
       });

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Cell.module.css";
 import { useClasses } from "../../hooks/index";
 
-const Cell = ({ val, row, col, changeBoard, possible }) => {
+const Cell = ({ val, row, col, changeBoard, possible, readOnly }) => {
   const [classes] = useClasses(row, col, possible, styles);
 
   const onChangeHandler = (event) => {
@@ -18,15 +18,10 @@ const Cell = ({ val, row, col, changeBoard, possible }) => {
         onChange={(event) => onChangeHandler(event)}
         className={styles.Input}
         maxLength={1}
+        {...readOnly}
       />
     </div>
   );
 };
 
-const compare = (prevProps, nextProps) => {
-  return (
-    prevProps.val === nextProps.val && prevProps.possible === nextProps.possible
-  );
-};
-
-export default React.memo(Cell, compare);
+export default Cell;
