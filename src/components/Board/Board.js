@@ -2,20 +2,30 @@ import React, { Fragment } from "react";
 import Cell from "../Cell/Cell";
 import styles from "./Board.module.css";
 import Controls from "../Controls/Controls";
-import { solve, possible, clone, generateSudoku } from "../../utility/index";
+import {
+  solve,
+  possible,
+  clone,
+  generateSudoku,
+  canSolve,
+} from "../../utility/index";
 import { useBoard } from "../../hooks/index";
 
 const Board = () => {
   const [board, setBoard, changeBoard, resetBoard] = useBoard();
 
   const solver = async () => {
+    console.log(board)
+    if (!canSolve(board)) {
+      console.log("Cannot solve");
+      return;
+    }
     const newBoard = [...board];
     await solve(newBoard);
     setBoard(newBoard);
   };
 
   const solveOne = async () => {
-    
     let Row = 0;
     let Col = 0;
 
@@ -30,8 +40,7 @@ const Board = () => {
     }
     const anotherBoard = clone(board);
     await solve(anotherBoard);
-    changeBoard(Row,Col,anotherBoard[Row][Col])
-    
+    changeBoard(Row, Col, anotherBoard[Row][Col]);
   };
 
   const random = async () => {

@@ -1,10 +1,9 @@
 let isSolved = false;
 export const clone = (board) => {
   const clone = [];
-  for (var i = 0; i < board.length; i++)
-    clone[i] = board[i].slice();
+  for (var i = 0; i < board.length; i++) clone[i] = board[i].slice();
   return clone;
-}
+};
 export const solve = async (board) => {
   for (let row = 0; row < board.length; row++) {
     for (let col = 0; col < board[row].length; col++) {
@@ -27,6 +26,16 @@ export const solve = async (board) => {
   return;
 };
 
+export const canSolve = (board) => {
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[row].length; col++) {
+      if (board[row][col] !== 0) {
+        if (!possible(board, row, col, board[row][col])) return false;
+      }
+    }
+  }
+  return true;
+};
 
 export const possible = (board, row, col, num) => {
   if (num === "") return true;
