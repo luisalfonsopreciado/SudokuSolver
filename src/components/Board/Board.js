@@ -14,8 +14,7 @@ import { useBoard } from "../../hooks/index";
 const Board = () => {
   const [board, setBoard, changeBoard, resetBoard] = useBoard();
   const [initialBoard, setInitialBoard] = useState(clone(board));
-  console.log(board);
-  console.log(initialBoard);
+
   const solver = async () => {
     if (!canSolve(board)) {
       return;
@@ -50,6 +49,13 @@ const Board = () => {
     setBoard(newBoard);
   };
 
+  const clear = () => {
+    resetBoard();
+    const newBoard = [...board];
+    setInitialBoard(clone(newBoard))
+    setBoard(newBoard)
+  }
+
   let Board = null;
   if (board) {
     Board = board.map((row, rowNum) => {
@@ -75,7 +81,7 @@ const Board = () => {
     <Fragment>
       <Controls
         random={random}
-        reset={resetBoard}
+        reset={clear}
         solver={solver}
         solveOne={solveOne}
       />
