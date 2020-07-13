@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "804b7a27c436f7c98548f955d3acf55d",
+    "revision": "5326fa1e32b3b88c4f1534bbde64e9f2",
     "url": "/SudokuSolver/index.html"
   },
   {
-    "revision": "3e6ff7b1a70548a9f2b7",
+    "revision": "8e33d403ab5c6b14359d",
     "url": "/SudokuSolver/static/css/main.e238119f.chunk.css"
   },
   {
-    "revision": "5405cecd305a36c1a1cd",
-    "url": "/SudokuSolver/static/js/2.43cf683b.chunk.js"
+    "revision": "64082ce8c14974cdef87",
+    "url": "/SudokuSolver/static/js/2.6ab482b5.chunk.js"
   },
   {
     "revision": "0749163b59fbee32225059cb60c18af6",
-    "url": "/SudokuSolver/static/js/2.43cf683b.chunk.js.LICENSE.txt"
+    "url": "/SudokuSolver/static/js/2.6ab482b5.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "3e6ff7b1a70548a9f2b7",
-    "url": "/SudokuSolver/static/js/main.08f0172e.chunk.js"
+    "revision": "8e33d403ab5c6b14359d",
+    "url": "/SudokuSolver/static/js/main.e4c19276.chunk.js"
   },
   {
     "revision": "34e66616f7bcd0b11879",
